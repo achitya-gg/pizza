@@ -2,8 +2,10 @@ const homeController = require('../app/http/controllers/homeController')
 const cartController = require('../app/http/controllers/cartController') 
 const authController = require('../app/http/controllers/authControllers')
 const orderController = require('../app/http/controllers/orderController')
+const AdminOrderController = require('../app/http/controllers/adminorderController')
 const guest = require('../app/http/middlewares/guest')
 const auth = require('../app/http/middlewares/auth')
+const admin = require('../app/http/middlewares/admin')
 function indexRoutes(app) {
     app.get('/', homeController().index)
 
@@ -18,5 +20,7 @@ function indexRoutes(app) {
 
     app.post('/orders', auth, orderController().store)
     app.get('/customer/orders', auth, orderController().index)
+
+    app.get('/admin/orders', admin, AdminOrderController().index)
 }
 module.exports = indexRoutes
