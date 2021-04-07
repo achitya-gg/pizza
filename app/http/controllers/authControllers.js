@@ -27,7 +27,7 @@ function authController() {
                         req.flash('error', info.message ) 
                         return next(err)
                     }
-                    return res.redirect('/')
+                    return res.redirect('/customer/orders')
                 })
             })(req, res, next)
         },
