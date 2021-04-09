@@ -31,7 +31,6 @@ if(alertMsg) {
         alertMsg.remove()
     }, 2000)
 }
-initAdmin()
 let statuses = document.querySelectorAll('.status_line')
 let hiddenInput = document.querySelector('#hiddenInput')
 let order = hiddenInput ? hiddenInput.value : null
@@ -60,4 +59,32 @@ function updateStatus(order) {
     })
 
 }
+
 updateStatus(order);
+
+// Socket 
+let socket = io()
+initAdmin(socket)
+// Join 
+if(order) {
+    socket.emit('join', `order_${order._id}`)
+}
+let adminAreaPath = window.location.pathname
+console.log(adminAreaPath)
+if(adminAreaPath.includes('admin')) {
+    socket.emit('join', 'adminRoom')
+}
+
+
+socket.on('orderUpdated', (data) => {
+    const updatedOrder = { ...order }
+    updatedOrder.updatedAt = moment().format()
+    updatedOrder.status = data.status
+    updateStatus(updatedOrder)
+    new Noty({
+        type: 'success',
+        timeout: 1000,
+        text: 'Order updated',
+        progressBar: false,
+    }).show();
+})
