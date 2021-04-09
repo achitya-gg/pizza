@@ -4,3 +4,4 @@
 #first you can type yarn init or npm init
 #and answer the question that it ask
 #to install a library type yarn add libraryname or npm install library name
+#please install socket.io
