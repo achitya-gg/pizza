@@ -61,6 +61,28 @@ function updateStatus(order) {
 }
 
 updateStatus(order);
+const cart = document.querySelector('#cart')
+if(cart) {
+    cart.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(cart);
+        let formObject = {}
+        for(let [key, value] of formData.entries()) {
+            formObject[key] = value
+        }
+        axios.post('/orders', formObject).then((res) => {
+            new Noty({
+                type: 'success',
+                timeout: 1000,
+                text: res.data.success,
+                progressBar: false,
+            }).show();
+            setTimeout(() => {
+                window.location.href = '/customer/orders';
+            }, 1000);
+        })
+    })
+}
 // Socket 
 let socket = io()
 // Join 
