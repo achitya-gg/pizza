@@ -51,7 +51,7 @@ export async function initStripe() {
                         new Noty({
                             type: 'success',
                             timeout: 1000,
-                            text: res.data.success,
+                            text: res.data.message,
                             progressBar: false,
                         }).show();
                         setTimeout(() => {

@@ -87,7 +87,7 @@ export function initAdmin(socket) {
             progressBar: false,
         }).show(); 
         orders.unshift(order)
-        // orderTableBody.innerHTML = ''
+        orderTableBody.innerHTML = ''
         orderTableBody.innerHTML = generateMarkup(orders)
     })
 }
