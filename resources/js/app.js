@@ -2,6 +2,7 @@ import axios from 'axios'
 import Noty from 'noty'
 import { initAdmin } from './admin'
 import moment from 'moment'
+import { initStripe } from './stripe'
 
 let addToCart = document.querySelectorAll('.add-to-cart')
 let cartCounter = document.querySelector('#cartCounter')
@@ -61,41 +62,18 @@ function updateStatus(order) {
 }
 
 updateStatus(order);
-const cart = document.querySelector('#cart')
-if(cart) {
-    cart.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let formData = new FormData(cart);
-        let formObject = {}
-        for(let [key, value] of formData.entries()) {
-            formObject[key] = value
-        }
-        axios.post('/orders', formObject).then((res) => {
-            new Noty({
-                type: 'success',
-                timeout: 1000,
-                text: res.data.success,
-                progressBar: false,
-            }).show();
-            setTimeout(() => {
-                window.location.href = '/customer/orders';
-            }, 1000);
-        })
-    })
-}
+initStripe()
 // Socket 
 let socket = io()
 // Join 
 if(order) {
     socket.emit('join', `order_${order._id}`)
-    initAdmin(socket)
 }
 let adminAreaPath = window.location.pathname
 if(adminAreaPath.includes('admin')) {
     socket.emit('join', 'adminRoom')
+    initAdmin(socket)
 }
-
-
 socket.on('orderUpdated', (data) => {
     const updatedOrder = { ...order }
     updatedOrder.updatedAt = moment().format()
