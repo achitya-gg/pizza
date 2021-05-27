@@ -71,7 +71,7 @@ function orderController () {
             const order = await Order.findById(req.params.id)
             // Authorize user
             if(req.user._id.toString() === order.customerId.toString()) {
-                return res.render('customers/singleOrder', { order })
+                return res.render('custmers/singleOrder', { order })
             }
             return  res.redirect('/')
         }
