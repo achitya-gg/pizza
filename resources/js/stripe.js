@@ -2,7 +2,7 @@ import axios from 'axios'
 import Noty from 'noty'
 import { loadStripe } from '@stripe/stripe-js'
 export async function initStripe() {
-    const stripe = await loadStripe('pk_test_51IejIVSBkwMSvMnIWgmf6k8938xMerzp1aSBZaSlzzyLSnLQeKNdl43gLxtQ9YPidWVrG6waBrUinkLTymnIEKno00dVtgYe6s');
+    const stripe = await loadStripe('pk_test_51QqFZ1QTCv2Ct8w52SXBFney9rRVNELlJobxCJIKAWWp0IQwz9EdStI0cGrm4v1A9jP9h4kPC01uVRsHn0H0da8700ow2JBeBh');
     let card = null;
     function mounutcard() {
         const elements = stripe.elements()
